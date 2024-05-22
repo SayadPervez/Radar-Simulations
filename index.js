@@ -3,7 +3,9 @@ let allParticles = [];
 let center = null;
 const circleResolution = 1;
 const mouseSize = 10
-const maxPendingArrays = 20
+const maxPendingArrays = 20;
+let detectedObjectsDistanceHistory = []
+const radarRange = 400
 
 class Radar
 {
@@ -76,7 +78,12 @@ class Particle
     {
         if(this.location.dist(center)<=10 && this.reflected)
         {
-            console.log((Date.now()-this.emissionTime)*60*this.r/(1000*2),"px")
+            let scalarDistance = (Date.now()-this.emissionTime)*60*this.r/(1000*2)
+            detectedObjectsDistanceHistory.push(scalarDistance)
+            if(detectedObjectsDistanceHistory.length>100)
+            {
+                detectedObjectsDistanceHistory.splice(0,1)
+            }
             allParticles[i][ii]=null
         }
     }
@@ -87,6 +94,14 @@ function mouseInteractions()
     stroke(255,0,0);
     fill(255,0,0);
     ellipse(mouseX, mouseY, mouseSize, mouseSize);
+}
+
+function displayResults()
+{
+    let textPositionVector = center.copy().add(createVector(radarRange,radarRange))
+    stroke(0)
+    fill(255)
+    text(`Distance : ${detectedObjectsDistanceHistory[detectedObjectsDistanceHistory.length-1]||"--"} px`,textPositionVector.x,textPositionVector.y)
 }
 
 function setup() {
@@ -107,7 +122,7 @@ function draw() {
         let emissionTime = Date.now();
         for(let i=0;i<360*circleResolution;i++)
         {
-            tempParticles.push(new Particle(center.copy(),emissionTime,1,i/circleResolution,400));
+            tempParticles.push(new Particle(center.copy(),emissionTime,1,i/circleResolution,radarRange));
         }
         allParticles.push(tempParticles)
 
@@ -136,6 +151,7 @@ function draw() {
     }
 
     mouseInteractions()
+    displayResults()
 
     frame+=1
 }
