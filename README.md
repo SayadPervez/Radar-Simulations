@@ -12,10 +12,12 @@ This branch will be a simple simulation for an **Omni-directional RADAR**.
 
 ### Results
 
-![OmniRadar](./results/omniradar.webm)
+![OmniRadar](./results/omniradar.gif)
 
 ### Disadvantages
 
 - It is not possible to deduce the direction using this RADAR
 Only distances can be calculated.
 - An Electronic warfare equipment simply emitting Radio waves in the same frequency will be able to confuse this type of RADAR
+
+> Note : Here the speed of Radio waves is slowed down in severals orders of magnitude. Thus the red reflecting dot that moves faster than the radio waves themselves itself is an impossible condition. Thus the case, where the radio waves reflected from the object when nearby to source reaching the source earlier than the reflected waves that are far away will never occur.
