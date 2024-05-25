@@ -6,6 +6,9 @@ const mouseSize = 10
 const maxPendingArrays = 20;
 let detectedObjectsDistanceHistory = []
 const radarRange = 400
+const FRAME_RATE = 60
+
+const SPEED_CONSTANT = 1
 
 class Radar
 {
@@ -108,7 +111,7 @@ function setup() {
     createCanvas(window.innerWidth, window.innerHeight);
     background(0);
     center = createVector(window.innerWidth/2,window.innerHeight/2);
-    frameRate(60)
+    frameRate(FRAME_RATE)
 }
 
 function draw() {
@@ -116,13 +119,13 @@ function draw() {
     background(0);
     new Radar(center);
 
-    if(frame%60==0)
+    if(frame%(FRAME_RATE/SPEED_CONSTANT)==0)
     {
         let tempParticles = []
         let emissionTime = Date.now();
         for(let i=0;i<360*circleResolution;i++)
         {
-            tempParticles.push(new Particle(center.copy(),emissionTime,1,i/circleResolution,radarRange));
+            tempParticles.push(new Particle(center.copy(),emissionTime,SPEED_CONSTANT,i/circleResolution,radarRange));
         }
         allParticles.push(tempParticles)
 
