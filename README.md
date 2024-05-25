@@ -9,3 +9,13 @@
 ---
 
 This branch will be a simple simulation for an **Omni-directional RADAR**.
+
+### Results
+
+![OmniRadar](./results/omniradar.webm)
+
+### Disadvantages
+
+- It is not possible to deduce the direction using this RADAR
+Only distances can be calculated.
+- An Electronic warfare equipment simply emitting Radio waves in the same frequency will be able to confuse this type of RADAR
